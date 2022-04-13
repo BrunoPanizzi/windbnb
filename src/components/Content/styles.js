@@ -1,17 +1,17 @@
 import styled from 'styled-components'
 
 export const Container = styled.main`
-  padding-inline: 2.5rem;
+  padding-inline: max(1rem, 4vw);
 
   .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding-block-end: 2rem;
 
     h2 {
       font-size: 24px;
       font-weight: bold;
-      padding-block-end: 2rem;
     }
   }
 `

@@ -19,20 +19,24 @@ function Stay({
     <Container>
       <img src={photo} />
 
-      <div className="small-info">
+      <div className="info">
         {superHost && <span className="super-host">SUPER HOST</span>}
-        <span>{type}</span>
+        <span>
+          {type}
+          {beds && `. ${beds} beds`}
+        </span>
         <div className="rating">
           <img src={star} alt="star" />
           {rating}
         </div>
+        <h3>{title}</h3>
       </div>
     </Container>
   )
 }
 
 Stay.propTypes = {
-  beds: propTypes.number.isRequired,
+  beds: propTypes.number,
   city: propTypes.string.isRequired,
   country: propTypes.string.isRequired,
   maxGuests: propTypes.number.isRequired,
@@ -41,6 +45,10 @@ Stay.propTypes = {
   superHost: propTypes.bool.isRequired,
   title: propTypes.string.isRequired,
   type: propTypes.string.isRequired,
+}
+
+Stay.defaultProps = {
+  beds: 0,
 }
 
 export default Stay
