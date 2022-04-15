@@ -4,12 +4,20 @@ export const Container = styled.div`
   flex: 1;
   min-width: 300px;
   margin-block-end: 2rem;
+  border-radius: 1.5rem;
+  transition: 0.6s;
 
-  img {
+  &:hover {
+    transform: scale(1.03);
+  }
+
+  & > img {
     width: 100%;
     aspect-ratio: 4/3;
     border-radius: 1.5rem;
     margin-bottom: 1rem;
+    object-fit: cover;
+    box-shadow: 0 3px 8px rgba(0 0 0 / 0.3);
   }
 
   .info {

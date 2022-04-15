@@ -3,19 +3,29 @@ import { useState, useEffect, useRef } from 'react'
 import search_white from '../../assets/search_white.svg'
 import marker from '../../assets/marker.svg'
 
+import { useSearch } from '../../context/SearchContext'
+
 import { BigInputContainer, Overlay } from './styles'
 
 import Input from '../Input'
 import NumberSelect from '../NumberSelect'
 
-function BigSearch({ onClose }) {
+const places = [
+  'Helsinki, Finland',
+  'Turku, Finland',
+  'Oulu, Finland',
+  'Vaasa, Finland',
+]
+
+function BigSearch({ onClose, guests, setGuests }) {
+  const totalGuests = guests.adults + guests.children
+
+  const { location, setLocation } = useSearch()
+
   const [isMobile, setIsMobile] = useState(
     window.matchMedia('(max-width: 630px)').matches
   )
   const [focus, setFocus] = useState()
-
-  const [adultGuests, setAdultGuests] = useState(0)
-  const [childrenGuests, setChildrenGuests] = useState(0)
 
   const container = useRef()
   const locationInp = useRef()
@@ -43,14 +53,24 @@ function BigSearch({ onClose }) {
             placeholder="Add location"
             label="Location"
             innerRef={locationInp}
+            value={location}
+            onChange={e => setLocation(e.target.value)}
           />
           <Input
+            readOnly
             placeholder="Add guests"
             label="Guests"
             innerRef={guestsInp}
+            value={
+              totalGuests === 0
+                ? ''
+                : totalGuests === 1
+                ? totalGuests + ' guest'
+                : totalGuests + ' guest'
+            }
           />
           {!isMobile && (
-            <button>
+            <button onClick={onClose}>
               <img src={search_white} />
               search
             </button>
@@ -58,41 +78,15 @@ function BigSearch({ onClose }) {
         </div>
         {focus === 'location' && (
           <div className="location">
-            <div>
-              <img
-                src={marker}
-                alt=""
-              />{' '}
-              Place
-            </div>
-            <div>
-              <img
-                src={marker}
-                alt=""
-              />{' '}
-              Place
-            </div>
-            <div>
-              <img
-                src={marker}
-                alt=""
-              />{' '}
-              Place
-            </div>
-            <div>
-              <img
-                src={marker}
-                alt=""
-              />{' '}
-              Place
-            </div>
-            <div>
-              <img
-                src={marker}
-                alt=""
-              />{' '}
-              Place
-            </div>
+            {places.map(name => (
+              <div
+                onClick={() => setLocation(name)}
+                key={name}
+              >
+                <img src={marker} />
+                {name}
+              </div>
+            ))}
           </div>
         )}
         {focus === 'guests' && (
@@ -100,21 +94,33 @@ function BigSearch({ onClose }) {
             <NumberSelect
               title="Adults"
               subtitle="Ages 13 or above"
-              value={adultGuests}
-              increment={() => setAdultGuests(p => p + 1)}
-              decrement={() => setAdultGuests(p => p - 1)}
+              value={guests.adults}
+              increment={() => setGuests(p => ({ ...p, adults: p.adults + 1 }))}
+              decrement={() =>
+                setGuests(p => ({
+                  ...p,
+                  adults: p.adults === 0 ? 0 : p.adults - 1,
+                }))
+              }
             />
             <NumberSelect
               title="Children"
               subtitle="Ages 2 - 12"
-              value={childrenGuests}
-              increment={() => setChildrenGuests(p => p + 1)}
-              decrement={() => setChildrenGuests(p => p - 1)}
+              value={guests.children}
+              increment={() =>
+                setGuests(p => ({ ...p, children: p.children + 1 }))
+              }
+              decrement={() =>
+                setGuests(p => ({
+                  ...p,
+                  children: p.children === 0 ? 0 : p.children - 1,
+                }))
+              }
             />
           </div>
         )}
         {isMobile && (
-          <button>
+          <button onClick={onClose}>
             <img src={search_white} />
             search
           </button>

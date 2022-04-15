@@ -23,20 +23,22 @@ export const Container = styled.header`
 `
 
 export const InputsContainer = styled.div`
-  height: 3.5rem;
   border-radius: 1rem;
-  min-width: 300px;
   background-color: #efefef;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   display: flex;
+  align-items: center;
 
   span {
     flex: 1;
     border-right: 1px solid #ddd;
     font-size: 0.875rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    padding: 1rem;
+    white-space: nowrap;
+  }
+
+  .no-guests {
+    color: #bdbdbd;
   }
 
   img {

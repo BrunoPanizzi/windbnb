@@ -26,7 +26,10 @@ function Stay({
           {beds && `. ${beds} beds`}
         </span>
         <div className="rating">
-          <img src={star} alt="star" />
+          <img
+            src={star}
+            alt="star"
+          />
           {rating}
         </div>
         <h3>{title}</h3>
@@ -52,3 +55,4 @@ Stay.defaultProps = {
 }
 
 export default Stay
+
