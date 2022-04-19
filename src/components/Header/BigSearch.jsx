@@ -66,7 +66,7 @@ function BigSearch({ onClose, guests, setGuests }) {
                 ? ''
                 : totalGuests === 1
                 ? totalGuests + ' guest'
-                : totalGuests + ' guest'
+                : totalGuests + ' guests'
             }
           />
           {!isMobile && (
