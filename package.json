@@ -2,10 +2,14 @@
   "name": "windbnb",
   "private": true,
   "version": "0.0.0",
+  "engines": {
+    "node": "16"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "npx http-server ./dist"
   },
   "dependencies": {
     "prop-types": "^15.8.1",
